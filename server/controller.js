@@ -1,41 +1,35 @@
-let houses = require('./db.json')
+let drains = require('./db.json')
 let globalID = 4
 
 module.exports = {
-    getHouses: (req, res) => {
-    res.status(200).send(houses)
+    getDrain: (req, res) => {
+    res.status(200).send(drains)
     },
-    deleteHouse:(req, res) => {
-    let index = houses.findIndex(elem => elem.id === +req.params.id)
-        houses.splice(index, 1)
-        res.status(200).send(houses);
+    deleteDrain:(req, res) => {
+    let index = drains.findIndex(elem => elem.id === +req.params.id)
+        drains.splice(index, 1)
+        res.status(200).send(drains);
     },
-    createHouse: (req, res) => {
-        let{address, price, imageURL} =req.body
-        let NewHouse = {
+    addDrain: (req, res) => {
+        let{nearestAddress, city, blockage} =req.body
+        let NewDrain = {
             id: globalID,
-            address,
-            price,
-            imageURL
+            nearestAddress,
+            city,
+            blockage
         }
-        houses.push(newHouses)
-        res.status(200).send(houses)
+        drains.push(NewDrain)
+        res.status(200).send(drains)
         globalID++
     },
-    updateHouse: (req, res) => {
+    updateDrain: (req, res) => {
       let {id } =req.params
       let {type } = req.body  
-      let index = houses.findIndex(elem => +elem.id === +id)
+      let index = drains.findIndex(elem => +elem.id === +id)
 
-      if (houses[index].price <=10000 && type === 'minus') {
-        houses[index].price =0
-        res.status(200).send(houses)
-    } else if (type === 'plus') {
-        houses[index].price +=10000
-        res.status(200).send(houses)
-    } else if (type ==='minus') {
-        houses[index].price -= 10000
-        res.status(200).send(houses)
+      if (drains[index].blockage != "none") {
+        drains[index].blockage === "none"
+        res.status(200).send(drains)
     }else{
         res.sendStatus (400)
     }

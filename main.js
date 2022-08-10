@@ -1,61 +1,61 @@
-const housesContainer = document.querySelector('#houses-container')
+const drainsContainer = document.querySelector('#drains-container')
 const form = document.querySelector('form')
 
-const baseURL = `http://localhost:4004/api/houses`
+const baseURL = `http://localhost:4004/api/drains`
 
-const housesCallback = ({ data: houses }) => displayHouses(houses)
+const drainsCallback = ({ data: drains }) => displaydrains(drains)
 const errCallback = err => console.log(err)
 
-const getAllHouses = () => axios.get(baseURL).then(housesCallback).catch(errCallback)
-const createHouse = body => axios.post(baseURL, body).then(housesCallback).catch(errCallback)
-const deleteHouse = id => axios.delete(`${baseURL}/${id}`).then(housesCallback).catch(errCallback)
-const updateHouse = (id, type) => axios.put(`${baseURL}/${id}`, {type}).then(housesCallback).catch(errCallback)
+const getAlldrains = () => axios.get(baseURL).then(drainsCallback).catch(errCallback)
+const addDrain = body => axios.post(baseURL, body).then(drainsCallback).catch(errCallback)
+const deleteDrain = id => axios.delete(`${baseURL}/${id}`).then(drainsCallback).catch(errCallback)
+const updateDrain = (id, type) => axios.put(`${baseURL}/${id}`, {type}).then(drainsCallback).catch(errCallback)
 
 function submitHandler(e) {
     e.preventDefault()
 
-    let address = document.querySelector('#address')
-    let price = document.querySelector('#price')
-    let imageURL = document.querySelector('#img')
+    let nearestAddress = document.querySelector('#nearestAddress')
+    let city = document.querySelector('#city')
+    let blockage = document.querySelector('#blockage')
 
     let bodyObj = {
-        address: address.value,
-        price: price.value, 
-        imageURL: imageURL.value
+        nearestAddress: nearestAddress.value,
+        city: city.value, 
+        blockage: blockage.value
     }
 
-    createHouse(bodyObj)
+    addDrain(bodyObj)
 
-    address.value = ''
-    price.value = ''
-    imageURL.value = ''
+    nearestAddress.value = ''
+    city.value = ''
+    blockage.value = ''
 }
 
-function createHouseCard(house) {
-    const houseCard = document.createElement('div')
-    houseCard.classList.add('house-card')
+function addDrainHelp(drain) {
+    const drainHelp = document.createElement('div')
+    drainHelp.classList.add('drain-help')
 
-    houseCard.innerHTML = `<img alt='house cover image' src=${house.imageURL} class="house-cover-image"/>
-    <p class="address">${house.address}</p>
+    drainHelp.innerHTML = `<img alt='drain cover image' src=${drain.imageURL} class="drain-cover-image"/>
+    <p class="nearestAddress">${drain.nearestAddress}</p>
     <div class="btns-container">
-        <button onclick="updateHouse(${house.id}, 'minus')">-</button>
-        <p class="house-price">$${house.price}</p>
-        <button onclick="updateHouse(${house.id}, 'plus')">+</button>
+        <button onclick="updateDrain(${drain.id}, 'minus')">-</button>
+        <p class="drain-price">$${drain.nearestAddress}</p>
+        <button onclick="updateDrain(${drain.id}, 'plus')">+</button>
     </div>
-    <button onclick="deleteHouse(${house.id})">delete</button>
+    <button onclick="deleteDrain(${drain.id})">delete</button>
     `
 
 
-    housesContainer.appendChild(houseCard)
+    drainsContainer.appendChild(drainHelp)
 }
 
-function displayHouses(arr) {
-    housesContainer.innerHTML = ``
+function displayDrains(arr) {
+    drainsContainer.innerHTML = ``
     for (let i = 0; i < arr.length; i++) {
-        createHouseCard(arr[i])
+        addDrainHelp(arr[i])
     }
 }
 
 form.addEventListener('submit', submitHandler)
 
-getAllHouses()
+getAlldrains()

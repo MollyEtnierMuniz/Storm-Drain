@@ -15,6 +15,30 @@
     "id": 3,
     "nearestAddress": "33800 Linden Road",
     "city": "Maple Grove",
-    "blockage": 169000
+    "blockage": "none"
+  },
+  {
+    "id": 4,
+    "nearestAddress": "4174 12th Ave",
+    "city": "Wayzata",
+    "blockage": "mild"
+  },
+  {
+    "id": 4,
+    "nearestAddress": "12 hi",
+    "city": "hi",
+    "blockage": "mild"
+  },
+  {
+    "id": 6,
+    "nearestAddress": "78 hello",
+    "city": "r",
+    "blockage": "s"
+  },
+  {
+    "id": 7,
+    "nearestAddress": "1",
+    "city": "2",
+    "blockage": "3"
   }
 ]

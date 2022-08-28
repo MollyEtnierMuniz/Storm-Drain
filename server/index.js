@@ -8,7 +8,7 @@ app.use(express.json())
 
 const {getDrain, deleteDrain, addDrain, updateDrain} = require('./controller.js')
 
-app.get('/api/drain', getDrain)
+app.get('/api/drains', getDrain)
 app.delete('/api/drains/:id', deleteDrain)
 app.post('/api/drains', addDrain)
 app.put('/api/drains/:id', updateDrain)

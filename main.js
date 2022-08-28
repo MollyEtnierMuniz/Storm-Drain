@@ -1,14 +1,21 @@
 const drainsContainer = document.querySelector('#drains-container')
 const form = document.querySelector('form')
 
+const addDrainBtn = document.querySelector("#submit")
+
+
+
 const baseURL = `http://localhost:4004/api/drains`
 
-const drainsCallback = ({ data: drains }) => displaydrains(drains)
+const drainsCallback = ({ data: drains }) => displayDrains(drains)
 const errCallback = err => console.log(err)
 
-const getAlldrains = () => axios.get(baseURL).then(drainsCallback).catch(errCallback)
+const getAllDrains = () => axios.get(baseURL).then(drainsCallback).catch(errCallback)
+
 const addDrain = body => axios.post(baseURL, body).then(drainsCallback).catch(errCallback)
+
 const deleteDrain = id => axios.delete(`${baseURL}/${id}`).then(drainsCallback).catch(errCallback)
+
 const updateDrain = (id, type) => axios.put(`${baseURL}/${id}`, {type}).then(drainsCallback).catch(errCallback)
 
 function submitHandler(e) {
@@ -23,7 +30,7 @@ function submitHandler(e) {
         city: city.value, 
         blockage: blockage.value
     }
-
+console.log ("test")
     addDrain(bodyObj)
 
     nearestAddress.value = ''
@@ -35,17 +42,13 @@ function addDrainHelp(drain) {
     const drainHelp = document.createElement('div')
     drainHelp.classList.add('drain-help')
 
-    drainHelp.innerHTML = `<img alt='drain cover image' src=${drain.imageURL} class="drain-cover-image"/>
-    <p class="nearestAddress">${drain.nearestAddress}</p>
-    <div class="btns-container">
-        <button onclick="updateDrain(${drain.id}, 'minus')">-</button>
-        <p class="drain-price">$${drain.nearestAddress}</p>
-        <button onclick="updateDrain(${drain.id}, 'plus')">+</button>
-    </div>
+    drainHelp.innerHTML = `<br> 
+    <p class="nearestAddress">${drain.nearestAddress}</p> 
+    <p class="city">${drain.city}</p>
+    <p class="drain-blockage">${drain.blockage}</p>
+        
     <button onclick="deleteDrain(${drain.id})">delete</button>
     `
-
-
     drainsContainer.appendChild(drainHelp)
 }
 
@@ -56,6 +59,5 @@ function displayDrains(arr) {
     }
 }
 
-form.addEventListener('submit', submitHandler)
-
-getAlldrains()
+form.addEventListener ("submit", submitHandler)
+getAllDrains()
